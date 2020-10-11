@@ -64,7 +64,7 @@ public class HotelReservation {
 	}
 	
 	/**
-	 *UC2
+	 *UC12 USING JAVA STREAMS
 	 */
 	public void findCheapestBestRatedHotelForRegularCustomer()
 	{
@@ -105,7 +105,10 @@ public class HotelReservation {
 		System.out.println(bestRate.getNameOfHotel() + " & Total Rates $" + totalRate);
 	}
 	
-	public void findCheapestBestRatedHotelForRewardsCustomer()
+	/**
+	 * UC12  USING JAVA STREAMS
+	 */
+	public void findCheapestBestRatedHotelForRewardsCustomer() 
 	{
 		System.out.println("Enter the date range as <date1>, <date2>, <date3> Eg.: 11Sep2020(sun), 11Sep2020(mon)");
 		String dateRange = sc.nextLine();
