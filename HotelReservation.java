@@ -29,14 +29,16 @@ public class HotelReservation {
 	{
 		char ch;
 		String hName;
-		int rate;
+		int wdRate ,weRate;
 		do
 		{
 			System.out.println("Enter the name of hotel:" );
 			hName =sc.nextLine();
-			System.out.println("Enter the rate for regular customer:" );
-			rate = Integer.parseInt(sc.nextLine());
-			Hotels hotelObj = new Hotels(hName, rate);
+			System.out.println("Enter the Weekday rate for regular customer:" );
+			wdRate = Integer.parseInt(sc.nextLine());
+			System.out.println("Enter the Weekday rate for regular customer:" );
+			weRate = Integer.parseInt(sc.nextLine());
+			Hotels hotelObj = new Hotels(hName, wdRate ,weRate);
 			hotelList.add(hotelObj);
 			setHotelList(hotelList);
 			System.out.println("Do you want to add more hotels (y/Y-n/N): ");
@@ -55,7 +57,7 @@ public class HotelReservation {
 		System.out.println("Enter the date range as <date1>, <date2>, <date3> Eg.: 11Sep2020, 11Sep2020");
 		String dateRange = sc.nextLine();
 		String range[] = dateRange.split(",");
-		Map<Hotels , Integer> hotelRateMap=hotelList.stream().collect(Collectors.toMap(k->k ,v->v.getRegularRate()*range.length));
+		Map<Hotels , Integer> hotelRateMap=hotelList.stream().collect(Collectors.toMap(k->k ,v->v.getRegularWeekDayRate()*range.length));
 		Hotels cheapestRate=hotelRateMap.keySet().stream().min((d1,d2)->hotelRateMap.get(d1) - hotelRateMap.get(d2)).orElse(null);
 		System.out.println(cheapestRate.getNameOfHotel() + ", Total Rates: $" + hotelRateMap.get(cheapestRate));
 	}
