@@ -60,7 +60,7 @@ public class HotelReservation {
 	/**
 	 *UC2
 	 */
-	public void findCheapestHotel()
+	public void findCheapestBestRatedHotel()
 	{
 		System.out.println("Enter the date range as <date1>, <date2>, <date3> Eg.: 11Sep2020(sun), 11Sep2020(mon)");
 		String dateRange = sc.nextLine();
