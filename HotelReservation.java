@@ -25,8 +25,9 @@ public class HotelReservation {
 		System.out.println("Welcome to Hotel Reservation Program");
 		HotelReservation hotelMainObj = new HotelReservation();
 		hotelMainObj.addHotels();
-		hotelMainObj.findCheapestBestRatedHotel();
+		hotelMainObj.findCheapestBestRatedHotelForRegularCustomer();
 		hotelMainObj.findBestRatedHotel();
+		hotelMainObj.findCheapestBestRatedHotelForRewardsCustomer();
 	}
 	
 	/**
@@ -65,7 +66,7 @@ public class HotelReservation {
 	/**
 	 *UC2
 	 */
-	public void findCheapestBestRatedHotel()
+	public void findCheapestBestRatedHotelForRegularCustomer()
 	{
 		System.out.println("Enter the date range as <date1>, <date2>, <date3> Eg.: 11Sep2020(sun), 11Sep2020(mon)");
 		String dateRange = sc.nextLine();
@@ -102,5 +103,27 @@ public class HotelReservation {
 		int totalRate = bestRate.getRegularWeekDayRate() * noOfWeekDay
 				+ bestRate.getRegularWeekEndRate() * noOfWeekend;
 		System.out.println(bestRate.getNameOfHotel() + " & Total Rates $" + totalRate);
+	}
+	
+	public void findCheapestBestRatedHotelForRewardsCustomer()
+	{
+		System.out.println("Enter the date range as <date1>, <date2>, <date3> Eg.: 11Sep2020(sun), 11Sep2020(mon)");
+		String dateRange = sc.nextLine();
+		//String range[] = dateRange.split(",");
+		Matcher dayMatcher = DAY_PATTERN.matcher(dateRange);
+		List<String> daysList = new ArrayList<String>();
+		while (dayMatcher.find()) {
+			daysList.add(dayMatcher.group());
+		}
+		int noOfWeekend =(int)  daysList.stream().filter(day -> WEEKENDS.contains(day)).count();
+		int noOfWeekDay = daysList.size() - noOfWeekend;
+		Map<Hotels , Integer> hotelRateMap=hotelList.stream().collect(Collectors.toMap(k->k ,v-> 
+											v.getRewardsWeekDayRate()* noOfWeekDay + v.getRewardsWeekEndRate()*noOfWeekend));
+		Hotels cheapestRate=hotelRateMap.keySet().stream().min((d1,d2) -> {
+			int minRate = hotelRateMap.get(d1) - hotelRateMap.get(d2);
+			int minRating = d1.getRating() - d2.getRating();
+			return minRate == 0 ? -(minRating) : minRate;
+		}).orElse(null);
+		System.out.println(cheapestRate.getNameOfHotel() + ", Rating : "+ cheapestRate.getRating() +" and Total Rates: $" + hotelRateMap.get(cheapestRate));
 	}
 }
