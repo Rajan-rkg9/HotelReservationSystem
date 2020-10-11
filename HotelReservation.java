@@ -73,7 +73,11 @@ public class HotelReservation {
 		int noOfWeekend =(int)  daysList.stream().filter(day -> WEEKENDS.contains(day)).count();
 		int noOfWeekDay = daysList.size() - noOfWeekend;
 		Map<Hotels , Integer> hotelRateMap=hotelList.stream().collect(Collectors.toMap(k->k ,v-> v.getRegularWeekDayRate()* noOfWeekDay + v.getRegularWeekEndRate()*noOfWeekend));
-		Hotels cheapestRate=hotelRateMap.keySet().stream().min((d1,d2)->hotelRateMap.get(d1) - hotelRateMap.get(d2)).orElse(null);
-		System.out.println(cheapestRate.getNameOfHotel() + ", Total Rates: $" + hotelRateMap.get(cheapestRate));
+		Hotels cheapestRate=hotelRateMap.keySet().stream().min((d1,d2) -> {
+			int minRate = hotelRateMap.get(d1) - hotelRateMap.get(d2);
+			int minRating = d1.getRating() - d2.getRating();
+			return minRate == 0 ? -(minRating) : minRate;
+		}).orElse(null);
+		System.out.println(cheapestRate.getNameOfHotel() + ", Rating : "+ cheapestRate.getRating() +" and Total Rates: $" + hotelRateMap.get(cheapestRate));
 	}
 }
