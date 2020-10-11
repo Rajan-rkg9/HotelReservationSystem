@@ -4,7 +4,7 @@ public class Hotels {
 	private String nameOfHotel;
 	private int regularWeekDayRate;
 	private int regularWeekEndRate;
-	public Hotels(String nameOfHotel, int regularWeekDayRate , int regularWeeekEndRate) {
+	public Hotels(String nameOfHotel, int regularWeekDayRate , int regularWeekEndRate) {
 		super();
 		this.nameOfHotel = nameOfHotel;
 		this.regularWeekDayRate = regularWeekDayRate;
