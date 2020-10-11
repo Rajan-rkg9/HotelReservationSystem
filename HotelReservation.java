@@ -35,16 +35,18 @@ public class HotelReservation {
 	{
 		char ch;
 		String hName;
-		int wdRate ,weRate;
+		int wdRate ,weRate ,rating;
 		do
 		{
 			System.out.println("Enter the name of hotel:" );
 			hName =sc.nextLine();
+			System.out.println("Enter Rating of Hotel:");
+			rating = Integer.parseInt(sc.nextLine());
 			System.out.println("Enter the Weekday rate for regular customer:" );
 			wdRate = Integer.parseInt(sc.nextLine());
 			System.out.println("Enter the Weekend rate for regular customer:" );
 			weRate = Integer.parseInt(sc.nextLine());
-			Hotels hotelObj = new Hotels(hName, wdRate ,weRate);
+			Hotels hotelObj = new Hotels(hName, wdRate ,weRate ,rating);
 			hotelList.add(hotelObj);
 			setHotelList(hotelList);
 			System.out.println("Do you want to add more hotels (y/Y-n/N): ");
@@ -60,7 +62,7 @@ public class HotelReservation {
 	 */
 	public void findCheapestHotel()
 	{
-		System.out.println("Enter the date range as <date1>, <date2>, <date3> Eg.: 11Sep2020, 11Sep2020");
+		System.out.println("Enter the date range as <date1>, <date2>, <date3> Eg.: 11Sep2020(sun), 11Sep2020(mon)");
 		String dateRange = sc.nextLine();
 		//String range[] = dateRange.split(",");
 		Matcher dayMatcher = DAY_PATTERN.matcher(dateRange);
