@@ -25,7 +25,8 @@ public class HotelReservation {
 		System.out.println("Welcome to Hotel Reservation Program");
 		HotelReservation hotelMainObj = new HotelReservation();
 		hotelMainObj.addHotels();
-		hotelMainObj.findCheapestHotel();
+		hotelMainObj.findCheapestBestRatedHotel();
+		hotelMainObj.findBestRatedHotel();
 	}
 	
 	/**
@@ -60,7 +61,7 @@ public class HotelReservation {
 	/**
 	 *UC2
 	 */
-	public void findCheapestHotel()
+	public void findCheapestBestRatedHotel()
 	{
 		System.out.println("Enter the date range as <date1>, <date2>, <date3> Eg.: 11Sep2020(sun), 11Sep2020(mon)");
 		String dateRange = sc.nextLine();
@@ -79,5 +80,23 @@ public class HotelReservation {
 			return minRate == 0 ? -(minRating) : minRate;
 		}).orElse(null);
 		System.out.println(cheapestRate.getNameOfHotel() + ", Rating : "+ cheapestRate.getRating() +" and Total Rates: $" + hotelRateMap.get(cheapestRate));
+	}
+	
+	public void findBestRatedHotel()
+	{
+		System.out.println("Enter the date range as <date1>, <date2>, <date3> Eg.: 11Sep2020(sun), 11Sep2020(mon)");
+		String dateRange = sc.nextLine();
+		//String range[] = dateRange.split(",");
+		Matcher dayMatcher = DAY_PATTERN.matcher(dateRange);
+		List<String> daysList = new ArrayList<String>();
+		while (dayMatcher.find()) {
+			daysList.add(dayMatcher.group());
+		}
+		int noOfWeekend =(int)  daysList.stream().filter(day -> WEEKENDS.contains(day)).count();
+		int noOfWeekDay = daysList.size() - noOfWeekend;
+		Hotels bestRate = hotelList.stream().max((hotel1, hotel2) -> hotel1.getRating() - hotel2.getRating()).orElse(null);
+		int totalRate = bestRate.getRegularWeekDayRate() * noOfWeekDay
+				+ bestRate.getRegularWeekEndRate() * noOfWeekend;
+		System.out.println(bestRate.getNameOfHotel() + " & Total Rates $" + totalRate);
 	}
 }
