@@ -36,7 +36,7 @@ public class HotelReservation {
 	{
 		char ch;
 		String hName;
-		int wdRate ,weRate ,rating;
+		int regularWDRate ,regularWERate ,rating ,rewardsWDRate ,rewardsWERate ;
 		do
 		{
 			System.out.println("Enter the name of hotel:" );
@@ -44,10 +44,14 @@ public class HotelReservation {
 			System.out.println("Enter Rating of Hotel:");
 			rating = Integer.parseInt(sc.nextLine());
 			System.out.println("Enter the Weekday rate for regular customer:" );
-			wdRate = Integer.parseInt(sc.nextLine());
+			regularWDRate = Integer.parseInt(sc.nextLine());
 			System.out.println("Enter the Weekend rate for regular customer:" );
-			weRate = Integer.parseInt(sc.nextLine());
-			Hotels hotelObj = new Hotels(hName, wdRate ,weRate ,rating);
+			regularWERate = Integer.parseInt(sc.nextLine());
+			System.out.println("Enter the Weekday rate for rewards customer:" );
+			rewardsWDRate = Integer.parseInt(sc.nextLine());
+			System.out.println("Enter the Weekend rate for rewards customer:" );
+			rewardsWERate = Integer.parseInt(sc.nextLine());
+			Hotels hotelObj = new Hotels(hName, regularWDRate ,regularWERate , rewardsWDRate ,rewardsWERate, rating);
 			hotelList.add(hotelObj);
 			setHotelList(hotelList);
 			System.out.println("Do you want to add more hotels (y/Y-n/N): ");
