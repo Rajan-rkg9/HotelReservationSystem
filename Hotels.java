@@ -8,12 +8,12 @@ public class Hotels {
 		this.nameOfHotel = nameOfHotel;
 		this.regularRate = regularRate;
 	}
-	public String getName() {
+	public String getNameOfHotel() {
 		return nameOfHotel;
 	}
 	
-	public void setName(String name) {
-		this.nameOfHotel = name;
+	public void setNameOfHotel(String nameOfHotel) {
+		this.nameOfHotel = nameOfHotel;
 	}
 	public int getRegularRate() {
 		return regularRate;
